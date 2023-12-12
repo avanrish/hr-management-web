@@ -1,5 +1,6 @@
 import { Routes as TRoutes } from '@angular/router';
 import { Routes } from './routes';
+import { AuthGuard, LoggedInGuard } from './auth/auth.guard';
 
 export const routes: TRoutes = [
   {
@@ -9,6 +10,7 @@ export const routes: TRoutes = [
   },
   {
     path: Routes.DASHBOARD,
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./dashboard/dashboard.component').then(
         (m) => m.DashboardComponent,
@@ -17,6 +19,7 @@ export const routes: TRoutes = [
   },
   {
     path: Routes.SIGNIN,
+    canActivate: [LoggedInGuard],
     loadComponent: () =>
       import('./sign-in/sign-in.component').then((m) => m.SignInComponent),
     title: 'Sign In | HR Management',
