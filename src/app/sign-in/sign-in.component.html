@@ -38,6 +38,11 @@
               class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
+          @if (errors.email) {
+            <p class="mt-2 text-sm text-red-600">
+              {{ errors.email }}
+            </p>
+          }
         </div>
 
         <div>
@@ -58,18 +63,23 @@
               class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
+          @if (errors.password) {
+            <p class="mt-2 text-sm text-red-600">
+              {{ errors.password }}
+            </p>
+          }
         </div>
 
-        <div class="flex items-center justify-between">
-          <div class="text-sm leading-6">
-            <a
-              href="#"
-              class="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
-              Forgot password?
-            </a>
-          </div>
-        </div>
+        <!--        <div class="flex items-center justify-between">-->
+        <!--          <div class="text-sm leading-6">-->
+        <!--            <a-->
+        <!--              href="#"-->
+        <!--              class="font-semibold text-indigo-600 hover:text-indigo-500"-->
+        <!--            >-->
+        <!--              Forgot password?-->
+        <!--            </a>-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <div>
           <button
@@ -78,6 +88,11 @@
           >
             Sign in
           </button>
+          @if (errors.signIn) {
+            <p class="mt-2 text-sm text-red-600">
+              {{ errors.signIn }}
+            </p>
+          }
         </div>
       </form>
     </div>

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import {
   FormControl,
   FormGroup,
@@ -19,12 +18,21 @@ export class SignInComponent {
     email: new FormControl(''),
     password: new FormControl(''),
   });
+  errors: { email?: string; password?: string; signIn?: string } = {};
 
   constructor(private readonly authService: AuthService) {}
 
   handleSubmit() {
+    this.errors = {};
     const { email, password } = this.loginForm.value;
-    if (!email || !password) return alert('Please fill in all fields');
-    this.authService.signIn(email, password);
+    if (!email) this.errors = { ...this.errors, email: 'Email is required' };
+    if (!password)
+      this.errors = { ...this.errors, password: 'Password is required' };
+    if (Object.keys(this.errors).length) return;
+    this.authService.signIn(email!, password!).subscribe({
+      error: ({ error }) => {
+        this.errors.signIn = error.message;
+      },
+    });
   }
 }

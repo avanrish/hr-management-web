@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import {
+  catchError,
+  firstValueFrom,
+  Observable,
+  Subject,
+  tap,
+  throwError,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  subject = new Subject();
   private user: any = null;
 
   constructor(
@@ -22,14 +30,17 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  signIn(email: string, password: string) {
-    this.http
-      .post('/auth/sign-in', { email, password })
-      .subscribe((data: any) => {
+  signIn(email: string, password: string): Observable<any> {
+    return this.http.post('/auth/sign-in', { email, password }).pipe(
+      tap((data: any) => {
         this.setMe(data['user']);
         this.setAuthToken(data['token']);
         this.router.navigate(['/']);
-      });
+      }),
+      catchError((error: HttpErrorResponse) => {
+        return throwError(() => error);
+      }),
+    );
   }
 
   signOut() {
