@@ -32,6 +32,12 @@ export class AuthService {
       });
   }
 
+  signOut() {
+    this.user = null;
+    localStorage.removeItem('token');
+    this.router.navigate(['/sign-in']);
+  }
+
   async getMe() {
     if (this.user) {
       return this.user;
