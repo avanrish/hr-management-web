@@ -43,9 +43,9 @@ export class CreateEmployeeModalComponent {
   }
 
   submit() {
-    this.http.post('/employees', this.formGroup.value).subscribe({
+    this.http.post<Employee>('/employees', this.formGroup.value).subscribe({
       next: (employee) => {
-        this.createEmployeeEvent.emit(employee as Employee);
+        this.createEmployeeEvent.emit(employee);
         this.closeModal();
       },
     });
