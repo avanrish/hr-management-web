@@ -31,7 +31,7 @@ export class CreateEmployeeModalComponent {
     position: new FormControl('', [Validators.required]),
     salary: new FormControl('', [Validators.required, Validators.min(1)]),
     startDate: new FormControl('', [Validators.required]),
-    isRemote: new FormControl(),
+    isRemote: new FormControl(false),
     notes: new FormControl(''),
   });
 
