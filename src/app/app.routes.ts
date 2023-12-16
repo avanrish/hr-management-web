@@ -16,6 +16,23 @@ export const routes: TRoutes = [
         (m) => m.DashboardComponent,
       ),
     title: 'Dashboard | HR Management',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./employees/employees.component').then(
+            (m) => m.EmployeesComponent,
+          ),
+      },
+      {
+        path: `${Routes.EMPLOYEE}/:id`,
+        loadComponent: () =>
+          import('./employee/employee.component').then(
+            (m) => m.EmployeeComponent,
+          ),
+        title: 'Employee | HR Management',
+      },
+    ],
   },
   {
     path: Routes.SIGNIN,
@@ -24,6 +41,17 @@ export const routes: TRoutes = [
       import('./sign-in/sign-in.component').then((m) => m.SignInComponent),
     title: 'Sign In | HR Management',
   },
+  // {
+  //   path: Routes.EMPLOYEE,
+  //   redirectTo: Routes.DASHBOARD,
+  //   pathMatch: 'full',
+  // },
+  // {
+  //   path: `${Routes.EMPLOYEE}/:id`,
+  //   canActivate: [AuthGuard],
+  //   loadComponent: () =>
+  //     import('./employee/employee.component').then((m) => m.EmployeeComponent),
+  // },
   {
     path: '**',
     loadComponent: () =>

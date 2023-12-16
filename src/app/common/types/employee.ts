@@ -11,7 +11,7 @@ export interface Employee {
   streetNumber: string;
   position: string;
   salary: number;
-  startDate: Date;
+  startDate: string;
   isRemote: boolean;
   notes?: string;
 }

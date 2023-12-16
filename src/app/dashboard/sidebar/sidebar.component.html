@@ -73,11 +73,20 @@ To: "opacity-0"
                   <li>
                     <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
                     <a
-                      href="#"
-                      class="bg-gray-50 text-indigo-600 group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                      routerLink="/{{ Routes.DASHBOARD }}"
+                      [ngClass]="{
+                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50': true,
+                        'bg-gray-50 text-indigo-600':
+                          currentRoute === Routes.DASHBOARD
+                      }"
                     >
                       <svg
-                        class="h-6 w-6 shrink-0 text-indigo-600"
+                        [ngClass]="{
+                          'h-6 w-6 shrink-0': true,
+                          'text-indigo-600': currentRoute === Routes.DASHBOARD,
+                          'text-gray-400 group-hover:text-indigo-600':
+                            currentRoute !== Routes.DASHBOARD
+                        }"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"

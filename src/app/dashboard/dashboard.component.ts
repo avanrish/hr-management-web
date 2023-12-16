@@ -3,49 +3,38 @@ import { NgClass, UpperCasePipe } from '@angular/common';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthService } from '../auth/auth.service';
-import { CreateEmployeeModalComponent } from './create-employee-modal/create-employee-modal.component';
-import { Employee } from '../common/types/employee';
-import { HttpClient } from '@angular/common/http';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Routes } from '../routes';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    SidebarComponent,
-    UpperCasePipe,
-    NgClass,
-    CreateEmployeeModalComponent,
-  ],
+  imports: [SidebarComponent, UpperCasePipe, NgClass, RouterOutlet, RouterLink],
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
   isSidebarOpen = false;
   isDropdownOpen = false;
-  isModalOpen = false;
   displayName = '';
-  employees: Employee[] = [];
+
+  currentRoute = this.router.url.split('/')[1];
 
   constructor(
     private readonly authService: AuthService,
-    private readonly http: HttpClient,
+    private readonly router: Router,
   ) {}
 
   async ngOnInit() {
     const { firstName, lastName } = await this.authService.getMe();
     this.displayName = `${firstName} ${lastName}`;
-    this.fetchEmployees();
+    this.router.events.subscribe(() => {
+      const splitUrl = this.router.url.split('/');
+      this.currentRoute = splitUrl[splitUrl.length - 1];
+    });
   }
 
   setSidebar(state: boolean) {
     this.isSidebarOpen = state;
-  }
-
-  setModal(state: boolean) {
-    this.isModalOpen = state;
-  }
-
-  addEmployee(employee: Employee) {
-    this.employees.push(employee);
   }
 
   signOut() {
@@ -56,11 +45,5 @@ export class DashboardComponent {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  fetchEmployees() {
-    this.http.get<Employee[]>('/employees').subscribe({
-      next: (employees) => {
-        this.employees = employees;
-      },
-    });
-  }
+  protected readonly Routes = Routes;
 }
