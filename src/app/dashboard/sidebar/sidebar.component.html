@@ -71,22 +71,16 @@ To: "opacity-0"
               <li>
                 <ul role="list" class="-mx-2 space-y-1">
                   <li>
-                    <!-- Current: "bg-gray-50 text-indigo-600", Default: "text-gray-700 hover:text-indigo-600 hover:bg-gray-50" -->
                     <a
                       routerLink="/{{ Routes.DASHBOARD }}"
-                      [ngClass]="{
-                        'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50': true,
-                        'bg-gray-50 text-indigo-600':
-                          currentRoute === Routes.DASHBOARD
-                      }"
+                      routerLinkActive="bg-gray-50 text-indigo-600"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-gray-700 hover:text-indigo-600 hover:bg-gray-50"
                     >
                       <svg
-                        [ngClass]="{
-                          'h-6 w-6 shrink-0': true,
-                          'text-indigo-600': currentRoute === Routes.DASHBOARD,
-                          'text-gray-400 group-hover:text-indigo-600':
-                            currentRoute !== Routes.DASHBOARD
-                        }"
+                        class="h-6 w-6 shrink-0 text-gray-400 group-hover:text-indigo-600"
+                        routerLinkActive="text-indigo-600"
+                        [routerLinkActiveOptions]="{ exact: true }"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke-width="1.5"
