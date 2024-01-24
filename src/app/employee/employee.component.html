@@ -16,6 +16,7 @@
           'bg-gray-200': !isEditable
         }"
         role="switch"
+        [attr.aria-checked]="isEditable"
         (click)="toggleEditable()"
       >
         <span class="sr-only">Toggle editing</span>

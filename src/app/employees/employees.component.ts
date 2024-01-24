@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { CreateEmployeeModalComponent } from '../employee/create-employee-modal/create-employee-modal.component';
 import { Employee } from '../common/types/employee';
 import { HttpClient } from '@angular/common/http';
 import { Routes } from '../routes';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-employees',
@@ -11,7 +12,7 @@ import { RouterLink } from '@angular/router';
   imports: [CreateEmployeeModalComponent, RouterLink],
   templateUrl: './employees.component.html',
 })
-export class EmployeesComponent {
+export class EmployeesComponent implements OnInit {
   isModalOpen = false;
   employees: Employee[] = [];
 

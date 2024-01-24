@@ -1,21 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import {
-  catchError,
-  firstValueFrom,
-  Observable,
-  Subject,
-  tap,
-  throwError,
-} from 'rxjs';
+import { catchError, firstValueFrom, Observable, tap, throwError } from 'rxjs';
+
+import { User } from '../common/types/user';
+import { SignInResponse } from '../common/types/sign-in-response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  subject = new Subject();
-  private user: any = null;
+  private user: User | null = null;
 
   constructor(
     private readonly http: HttpClient,
@@ -30,17 +25,20 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
-  signIn(email: string, password: string): Observable<any> {
-    return this.http.post('/auth/sign-in', { email, password }).pipe(
-      tap((data: any) => {
-        this.setMe(data['user']);
-        this.setAuthToken(data['token']);
-        this.router.navigate(['/']);
-      }),
-      catchError((error: HttpErrorResponse) => {
-        return throwError(() => error);
-      }),
-    );
+  signIn(email: string, password: string): Observable<SignInResponse> {
+    return this.http
+      .post<SignInResponse>('/auth/sign-in', { email, password })
+      .pipe(
+        tap((data) => {
+          this.setMe(data['user']);
+          this.setAuthToken(data['token']);
+          this.router.navigate(['/']);
+          return data;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => error);
+        }),
+      );
   }
 
   signOut() {
@@ -54,7 +52,7 @@ export class AuthService {
       return this.user;
     }
     try {
-      const data = await firstValueFrom(this.http.get('/users/me'));
+      const data = await firstValueFrom(this.http.get<User>('/users/me'));
       this.setMe(data);
       return data;
     } catch {
@@ -62,7 +60,7 @@ export class AuthService {
     }
   }
 
-  setMe(user: any) {
+  setMe(user: User) {
     this.user = user;
   }
 }

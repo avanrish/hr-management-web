@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgClass, UpperCasePipe } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AuthService } from '../auth/auth.service';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Routes } from '../routes';
 
 @Component({
@@ -19,7 +19,7 @@ import { Routes } from '../routes';
   ],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   isSidebarOpen = false;
   isDropdownOpen = false;
   displayName = '';

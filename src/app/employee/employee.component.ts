@@ -1,9 +1,5 @@
-import { Component, Input, numberAttribute } from '@angular/core';
+import { Component, Input, numberAttribute, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Employee } from '../common/types/employee';
-import { Router } from '@angular/router';
-import { CreateEmployeeModalComponent } from './create-employee-modal/create-employee-modal.component';
-import { SidebarComponent } from '../dashboard/sidebar/sidebar.component';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import {
   FormControl,
@@ -11,7 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+
+import { Employee } from '../common/types/employee';
+import { CreateEmployeeModalComponent } from './create-employee-modal/create-employee-modal.component';
+import { SidebarComponent } from '../dashboard/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-employee',
@@ -25,7 +26,7 @@ import { ToastrService } from 'ngx-toastr';
   ],
   templateUrl: './employee.component.html',
 })
-export class EmployeeComponent {
+export class EmployeeComponent implements OnInit {
   @Input({ transform: numberAttribute }) id: number = 0;
   employee: Employee | null = null;
   isEditable = false;
@@ -86,21 +87,22 @@ export class EmployeeComponent {
 
   formSetEmployeeData() {
     if (!this.employee) return;
-    const {
-      id: _,
-      mobile,
-      startDate,
-      salary,
-      fullName: __,
-      ...rest
-    } = this.employee;
+    const { startDate, salary, ...rest } = this.employee;
     const date = new Date(startDate);
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     this.formGroup.setValue({
-      ...rest,
-      phone: mobile,
+      firstName: this.employee.firstName,
+      lastName: this.employee.lastName,
+      email: this.employee.email,
+      city: this.employee.city,
+      postalCode: this.employee.postalCode,
+      streetName: this.employee.streetName,
+      streetNumber: this.employee.streetNumber,
+      position: this.employee.position,
+      isRemote: this.employee.isRemote,
+      phone: this.employee.mobile,
       startDate: `${year}-${month}-${day}`,
       salary: salary.toString(),
       notes: rest.notes || '',
