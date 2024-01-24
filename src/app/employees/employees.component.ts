@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CreateEmployeeModalComponent } from '../dashboard/create-employee-modal/create-employee-modal.component';
+import { CreateEmployeeModalComponent } from '../employee/create-employee-modal/create-employee-modal.component';
 import { Employee } from '../common/types/employee';
 import { HttpClient } from '@angular/common/http';
 import { Routes } from '../routes';

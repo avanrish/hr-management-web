@@ -7,7 +7,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { Employee } from '../common/types/employee';
 import { Router } from '@angular/router';
-import { CreateEmployeeModalComponent } from '../dashboard/create-employee-modal/create-employee-modal.component';
+import { CreateEmployeeModalComponent } from './create-employee-modal/create-employee-modal.component';
 import { SidebarComponent } from '../dashboard/sidebar/sidebar.component';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import {
