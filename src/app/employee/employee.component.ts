@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  numberAttribute,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, numberAttribute } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Employee } from '../common/types/employee';
 import { Router } from '@angular/router';
