@@ -27,8 +27,9 @@ export class DashboardComponent implements OnInit {
   constructor(private readonly authService: AuthService) {}
 
   async ngOnInit() {
-    const { firstName, lastName } = await this.authService.getMe();
-    this.displayName = `${firstName} ${lastName}`;
+    const user = await this.authService.getMe();
+    if (!user) return;
+    this.displayName = `${user.firstName} ${user.lastName}`;
   }
 
   setSidebar(state: boolean) {

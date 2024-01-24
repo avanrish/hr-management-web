@@ -13,7 +13,7 @@ export class AuthGuard {
     try {
       return this.authService.getMe().then((user) => {
         if (!user) return this.router.navigate(['/sign-in']);
-        return user;
+        return !!user;
       });
     } catch (e) {
       return this.router.navigate(['/sign-in']);
